@@ -1,5 +1,11 @@
+# Binaries
+*.exe
+
 # Object file
 *.o
 
 # Ada Library Information
 *.ali
+
+# Intermediate file stages
+*/obj/*
