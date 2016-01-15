@@ -1,0 +1,33 @@
+#! /bin/bash
+
+if [[ "$1" ]]; then
+    orig="Practical1"
+    
+    if [[ "$1" =~ ^[0-9]+$ ]]; then
+        dest="Practical$1"
+    else
+        dest="$1"
+    fi
+    
+    # Copy the first practical folder
+    cp -R "$orig" "$dest";
+    
+    # Edit the project name
+    sed -i -e "s/$orig/$dest/g" "$dest/.project"
+    
+    # Convert the origin and destinations to lowercase
+    orig_lower=${orig,,}
+    dest_lower=${dest,,}
+    
+    # Move the template main code file
+    mv "$dest/src/$orig_lower.adb" "$dest/src/$dest_lower.adb"
+    sed -i -e "s/$orig/$dest/g" "$dest/src/$dest_lower.adb"
+    
+    # Update the GNAT project file
+    sed -i -e "s/$orig_lower/$dest_lower/g" "$dest/Practical.gpr"
+    
+    # Clear out the obj and bin directories
+    rm -Rf "$dest/bin" "$dest/obj"
+else
+    echo "Please follow the command with the name of the new practical."
+fi
