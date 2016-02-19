@@ -42,6 +42,7 @@ procedure Practical7 is
       delay until Start_Time;
 
       while Count < 50 loop
+         F := 0;
          Put_Line("Low Executing");
 
          for J in 1..5000 loop
